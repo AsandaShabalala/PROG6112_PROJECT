@@ -34,4 +34,18 @@ public class Ward {
         return false;
     }
     
+    public boolean search(Patient patient, int Id){
+        
+        for(int i =0; i < beds.length; i++){
+            for(int y=0; y<beds[i].length; y++){
+                
+                if(Id == beds[i][y].getPatientId()){
+                    
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
 }
