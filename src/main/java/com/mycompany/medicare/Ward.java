@@ -33,27 +33,33 @@ public class Ward {
                 
                 if(Patients[i][y] == null){
                     Patients[i][y] = patient;
-                    return true;
+                    
+                    //using a nested if to allocate beds to inpateints
+                    if(patient.getCategory().equals("Inpatient")){
+                        allocateBed(patient);
+                    }
                 }
             }
         }
         return false;
     }
     
-    public boolean search(int Id){
+    //method to search for patients
+    public Patient search(int Id){
         
         for(int i =0; i < Patients.length; i++){
             for(int y=0; y<Patients[i].length; y++){
                 
                 if(Patients[i][y] != null && Id == Patients[i][y].getPatientId()){
                     
-                    return true;
+                    return Patients[i][y];
                 }
             }
         }
-        return false;
+        return null;
     }
     
+    //method to remove patients
     public boolean removePatient(int Id){
         
         for(int i=0; i <Patients.length; i++){
@@ -69,6 +75,7 @@ public class Ward {
         return false;
     }
     
+    //,ethod to display all registered patients
     public void displayPatients(){
         
         for(int i =0; i< Patients.length; i++){
@@ -86,6 +93,7 @@ public class Ward {
         }        
     }
     
+    //method to update patient details
     public void updatePatient(Patient patient, int patientId){
         
         for(int i =0; i< Patients.length; i++){
@@ -101,5 +109,18 @@ public class Ward {
             }
         }
                 
+    }
+    
+    //method to allocate availabe beds to inpatients
+    public void allocateBed(Patient patient) {
+
+        for (int i = 0; i < beds.length; i++) {
+            for (int y = 0; y < beds[i].length; y++) {
+
+                if (beds[i][y] == null) {
+                    beds[i][y] = patient;
+                }
+            }
+        }
     }
 }

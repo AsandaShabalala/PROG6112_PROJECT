@@ -55,6 +55,34 @@ public class Patient {
     public String getCategory() {
         return category;
     }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setMedicalCondition(String medicalCondition) {
+        this.medicalCondition = medicalCondition;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
     
     
 }
