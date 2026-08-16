@@ -16,9 +16,9 @@ public class Patient {
     private int age;
     private String gender;
     private String medicalCondition;
-    private String category;
+    private patientCategory category;
 
-    public Patient(String firstName, String lastName, int patientId, int age, String gender, String medicalCondition, String category) {
+    public Patient(String firstName, String lastName, int patientId, int age, String gender, String medicalCondition, patientCategory category) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.patientId = patientId;
@@ -52,7 +52,7 @@ public class Patient {
         return medicalCondition;
     }
 
-    public String getCategory() {
+    public patientCategory getCategory() {
         return category;
     }
 
@@ -80,7 +80,7 @@ public class Patient {
         this.medicalCondition = medicalCondition;
     }
 
-    public void setCategory(String category) {
+    public void setCategory (patientCategory category) {
         this.category = category;
     }
     

@@ -35,7 +35,7 @@ public class Ward {
                     Patients[i][y] = patient;
                     
                     //using a nested if to allocate beds to inpateints
-                    if(patient.getCategory().equals("Inpatient")){
+                    if(patient.getCategory().equals(patientCategory.INPATIENT)){
                         allocateBed(patient);
                     }
                 }

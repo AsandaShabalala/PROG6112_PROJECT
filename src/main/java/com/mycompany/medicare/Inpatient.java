@@ -10,14 +10,28 @@ package com.mycompany.medicare;
  */
 public class Inpatient extends Patient {
     
-    int wardNumber;
-    int bedNumber;
-    public Inpatient(String firstName, String lastName, int patientId, int age, String gender, String medicalCondition, String category) {
-        super(firstName, lastName, patientId, age, gender, medicalCondition, category);
+    private int wardNumber;
+    private int bedNumber;
+    
+    public Inpatient(String firstName, String lastName, int patientId, int age, String gender, String medicalCondition) {
+        super(firstName, lastName, patientId, age, gender, medicalCondition, patientCategory.INPATIENT);
+    }
+
+    public int getWardNumber() {
+        return wardNumber;
+    }
+
+    public int getBedNumber() {
+        return bedNumber;
+    }
+
+    public void setWardNumber(int wardNumber) {
+        this.wardNumber = wardNumber;
+    }
+
+    public void setBedNumber(int bedNumber) {
+        this.bedNumber = bedNumber;
     }
     
-    @Override
-    public String getCategory() {
-        return "In patient";
-    }
+
 }

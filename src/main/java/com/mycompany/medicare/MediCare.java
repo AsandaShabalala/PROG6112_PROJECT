@@ -10,6 +10,8 @@ import java.util.Scanner;
  *
  * @author Student
  */
+
+
 public class MediCare {
     
     private static Ward ward = new Ward();
@@ -20,6 +22,7 @@ public class MediCare {
     }
     
     
+
     private static void Menu() {
     System.out.println("****** HOSPITAL WARD MANAGEMENT ******");
     System.out.println("1. Register new patient");
@@ -76,11 +79,11 @@ public class MediCare {
         Patient patient;
         
         switch (category) {
-            case 1 -> patient = new Patient(firstName, lastName, id, age, gender, condition, "Inpatient");
+            case 1 -> patient = new Patient(firstName, lastName, id, age, gender, condition, patientCategory.INPATIENT);
 
-            case 2 -> patient = new Patient(firstName, lastName, id, age, gender, condition, "Outpatient");
+            case 2 -> patient = new Patient(firstName, lastName, id, age, gender, condition, patientCategory.OUTPATIENT);
 
-            case 3 -> patient = new Patient(firstName, lastName, id, age, gender, condition, "Emergency");
+            case 3 -> patient = new Patient(firstName, lastName, id, age, gender, condition, patientCategory.EMERGENCY);
 
             default -> {
                 System.out.println("Invalid category.");
@@ -134,8 +137,20 @@ public class MediCare {
             patient.setMedicalCondition(condition);
 
             System.out.print("Category (1=Inpatient, 2=Outpatient, 3=Emergency): ");
-            String category = scanner.nextLine();
-            patient.setCategory(category);
+            int category = scanner.nextInt();
+            
+            switch(category){
+                
+                case 1 -> patient.setCategory(patientCategory.INPATIENT);
+                case 2 -> patient.setCategory(patientCategory.OUTPATIENT);
+                case 3 -> patient.setCategory(patientCategory.EMERGENCY);
+                
+                default -> {
+                    System.out.println("Inavalid category selected please try Updating patient info again");   
+                    return;
+                }
+            }
+
         
             ward.updatePatient(patient, Id);
         }
