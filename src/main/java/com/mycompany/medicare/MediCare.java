@@ -16,8 +16,9 @@ public class MediCare {
     static Scanner scanner = new Scanner(System.in);
     
     public static void main(String[] args) {
-        
+        ward.displayOccupiedBeds();
     }
+    
     
     private static void Menu() {
     System.out.println("****** HOSPITAL WARD MANAGEMENT ******");
@@ -106,6 +107,7 @@ public class MediCare {
         
         System.out.println("Enter the the Id of the patient you want to delete: ");
         int Id = scanner.nextInt();
+        scanner.nextLine();
         
         Patient patient = ward.search(Id);
         if(ward.search(Id) != null){
@@ -136,6 +138,9 @@ public class MediCare {
             patient.setCategory(category);
         
             ward.updatePatient(patient, Id);
+        }
+        else{
+            System.out.println("Patient Not found");
         }
         
     }

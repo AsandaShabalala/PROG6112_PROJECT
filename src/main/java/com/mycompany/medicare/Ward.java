@@ -60,22 +60,34 @@ public class Ward {
     }
     
     //method to remove patients
+    //It also realeses a bed if when the patient is removed
     public boolean removePatient(int Id){
         
         for(int i=0; i <Patients.length; i++){
             for(int y=0; y< Patients[i].length; y++){
-                if(Patients[i][y] != null && beds[i][y].getPatientId() == Id){
+                if(Patients[i][y] != null && Patients[i][y].getPatientId() == Id){
                     
                     Patients[i][y] = null;
-                    beds[i][y] = null;
+                    
+                    //now searching the beds array to release Bed if the patient is discharged
+                    for (int x = 0; x < beds.length; x++) {
+                        for (int z = 0; z < beds[x].length; z++) {
+
+                            if (beds[x][z] != null &&
+                                beds[x][z].getPatientId() == Id) {
+
+                                beds[x][z] = null;
+                            }
+                        }
+                    }
                     return true;
                 }
             }
-        }
+        }  
         return false;
     }
     
-    //,ethod to display all registered patients
+    //method to display all registered patients
     public void displayPatients(){
         
         for(int i =0; i< Patients.length; i++){
@@ -111,16 +123,55 @@ public class Ward {
                 
     }
     
-    //method to allocate availabe beds to inpatients
-    public void allocateBed(Patient patient) {
+    //method to allocate availabe beds to inpatients returns false if not beds are available 
+    public boolean allocateBed(Patient patient) {
 
         for (int i = 0; i < beds.length; i++) {
             for (int y = 0; y < beds[i].length; y++) {
 
                 if (beds[i][y] == null) {
                     beds[i][y] = patient;
+                    return true;
                 }
             }
         }
+        return false;
     }
+    
+    //method to display the ward layout
+    public void wardLayout(){
+        
+        System.out.println("*****************WARD LAYOUT***************(E = empty, O = Occupied)");
+        for(int i= 0;i < beds.length; i++ ){
+            for(int y=0; y< beds[i].length; y++ ){
+                
+                if(beds[i][y] == null){
+                    
+                    System.out.print("[Bed:"+i+y+ " E]\t");
+                }
+                else{
+                    System.out.print("Bed:"+i+y+ " O]\t");
+                }
+            }
+            System.out.println();
+        }
+    }
+    
+    //method to display Occupied Beds
+    public void displayOccupiedBeds(){
+        
+        System.out.println("Occupied Beds");
+        for(int i= 0;i < beds.length; i++ ){
+            for(int y=0; y< beds[i].length; y++ ){
+                
+                if(beds[i][y] == null){
+                    
+                    System.out.print("bed: " +i+y +" is occupied\t");
+                }
+            }
+            System.out.println();
+        }
+    }
+    
+    
 }
