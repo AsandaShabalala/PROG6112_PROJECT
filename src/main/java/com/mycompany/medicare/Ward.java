@@ -173,5 +173,40 @@ public class Ward {
         }
     }
     
+    public void totals(){
+        
+       int wardTotal =20; 
+       int totalPatients =0;
+       int totalBedsOccupied =0;
+       double wardOccupancy;
+       
+        for(int i= 0;i < Patients.length; i++ ){
+            for(int y=0; y< Patients[i].length; y++ ){
+               
+                if(Patients[i][y] != null){
+                    
+                    totalPatients++;
+                }
+            }
+        }       
+        //finding the total number of occupied beds
+        for (int x = 0; x < beds.length; x++) {
+            for (int z = 0; z < beds[x].length; z++) {
+
+                if (beds[x][z] != null){
+
+                    totalBedsOccupied++;
+                }
+            }
+        }
+        wardOccupancy = (totalPatients/ wardTotal) * 100;
+        
+        System.out.println("***********WARD REPORT**************");
+        System.out.println("Registered Patients : " + totalPatients);
+        System.out.println("Occupied Beds       : " + totalBedsOccupied);
+        System.out.println("Bed Bccupancy       : " + wardOccupancy);
+        
+    }
+    
     
 }

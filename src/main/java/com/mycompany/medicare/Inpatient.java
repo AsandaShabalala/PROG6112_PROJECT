@@ -10,6 +10,8 @@ package com.mycompany.medicare;
  */
 public class Inpatient extends Patient {
     
+    int wardNumber;
+    int bedNumber;
     public Inpatient(String firstName, String lastName, int patientId, int age, String gender, String medicalCondition, String category) {
         super(firstName, lastName, patientId, age, gender, medicalCondition, category);
     }
