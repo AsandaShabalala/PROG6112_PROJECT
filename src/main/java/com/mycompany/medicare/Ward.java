@@ -10,19 +10,15 @@ package com.mycompany.medicare;
  */
 public class Ward {
     
-    private int row = 4;
-    private int column = 5;
+    private int row = 10;
+    private int column = 10;
     
-    Patient[][] beds;
-    Patient[][] outPatients;
-    Patient[][] Emergency;
+    Inpatient[][] beds;
     Patient[][] Patients;
 
     public Ward() {
         
-        beds = new Patient[row][column];
-        outPatients = new Patient[row][column];
-        Emergency = new Patient[row][column];
+        beds = new Inpatient[4][5];
         Patients = new Patient[row][column];
     }
     
@@ -35,9 +31,10 @@ public class Ward {
                     Patients[i][y] = patient;
                     
                     //using a nested if to allocate beds to inpateints
-                    if(patient.getCategory().equals(patientCategory.INPATIENT)){
-                        allocateBed(patient);
+                    if(patient instanceof Inpatient){
+                        allocateBed((Inpatient) patient);
                     }
+                    return true;
                 }
             }
         }
@@ -124,7 +121,7 @@ public class Ward {
     }
     
     //method to allocate availabe beds to inpatients returns false if not beds are available 
-    public boolean allocateBed(Patient patient) {
+    public boolean allocateBed(Inpatient patient) {
 
         for (int i = 0; i < beds.length; i++) {
             for (int y = 0; y < beds[i].length; y++) {

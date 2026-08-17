@@ -27,6 +27,16 @@ public class Patient {
         this.medicalCondition = medicalCondition;
         this.category = category;
     }
+    
+    public void displayDetails(){
+        
+        System.out.println("Name              : " + firstName );
+        System.out.println("Last Name         : " + lastName);
+        System.out.println("Gender            : " + gender);
+        System.out.println("Age               : " + age);
+        System.out.println("Medical Condition : " + medicalCondition);
+        System.out.println("Category          : " + category);
+    }
 
     public String getFirstName() {
         return firstName;

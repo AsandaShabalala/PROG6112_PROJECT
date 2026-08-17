@@ -10,13 +10,25 @@ package com.mycompany.medicare;
  */
 public class Inpatient extends Patient {
     
-    private int wardNumber;
-    private int bedNumber;
+    private int wardNumber = 1;
+    private int bedNumber = -1;  //setting to -1 since it does not have an actuall value
     
     public Inpatient(String firstName, String lastName, int patientId, int age, String gender, String medicalCondition) {
         super(firstName, lastName, patientId, age, gender, medicalCondition, patientCategory.INPATIENT);
     }
 
+    @Override
+     public void displayDetails(){
+        System.out.println("Name              : " + getFirstName() );
+        System.out.println("Last Name         : " + getLastName() );
+        System.out.println("Gender            : " + getGender() );
+        System.out.println("Age               : " + getAge() );
+        System.out.println("Medical Condition : " + getMedicalCondition() );
+        System.out.println("Category          : " + getCategory() );
+        System.out.println("Ward Number       : " + wardNumber);
+        System.out.println("Bed Number        : " + bedNumber);
+    }
+    
     public int getWardNumber() {
         return wardNumber;
     }
