@@ -47,8 +47,7 @@ public class Ward {
         for(int i =0; i < Patients.length; i++){
             for(int y=0; y<Patients[i].length; y++){
                 
-                if(Patients[i][y] != null){
-                    
+                if(Patients[i][y] == null){                
                     Patients[i][y] = patient;
                     return true;
                 }
@@ -102,12 +101,17 @@ public class Ward {
     
     //method to display all registered patients
     public void displayPatients(){
+        int z = 1;
         
         for(int i =0; i< Patients.length; i++){
             for(int y =0; y< Patients[i].length; y++){
                 
             if (Patients[i][y] != null){
+                System.out.println("\t Patient " +z);
                 Patients[i][y].displayDetails();
+                
+                z++;
+                System.out.println();
             }
             }
         }        
@@ -122,13 +126,11 @@ public class Ward {
                 if(Patients[i][y] != null && patientId == Patients[i][y].getPatientId()){
                     
                     Patients[i][y] = patient;
+                    System.out.println("DETAILS SUCCESSFULLY UPDATED");
                     return;
-                }  
-            
-                
+                }                 
             }
-        }
-                
+        }              
     }
     
     //method to allocate availabe beds to inpatients returns false if not beds are available 
@@ -137,7 +139,10 @@ public class Ward {
         for (int i = 0; i < beds.length; i++) {
             for (int y = 0; y < beds[i].length; y++) {
 
+                
                 if (beds[i][y] == null) {
+                    
+                    patient.setBedNumber(4);
                     beds[i][y] = patient;
                     return true;
                 }
@@ -155,10 +160,10 @@ public class Ward {
                 
                 if(beds[i][y] == null){
                     
-                    System.out.print("[Bed:"+i+y+ " E]\t");
+                    System.out.print("[Bed: "+i+":"+y+ " E]\t");
                 }
                 else{
-                    System.out.print("Bed:"+i+y+ " O]\t");
+                    System.out.print("[Bed:"+i+":"+y+ " O]\t");
                 }
             }
             System.out.println();
@@ -168,16 +173,52 @@ public class Ward {
     //method to display Occupied Beds
     public void displayOccupiedBeds(){
         
+        int total = 0;
+        
         System.out.println("Occupied Beds");
+        for(int i= 0;i < beds.length; i++ ){
+            for(int y=0; y< beds[i].length; y++ ){
+                
+                if(beds[i][y] != null){
+                    
+                    System.out.print("bed: " +i+":"+y +" is occupied\t");
+                    total++;
+                }
+                
+            }
+            System.out.println();
+        }  
+        if(total <=0){
+            System.out.println("There are no occupied beds");
+        }
+        else{
+            System.out.println("Occupied beds : " + total);
+        }
+    }
+    
+    //method to display Occupied Beds
+    public void displayEmptyBeds(){
+        
+        int total = 0;
+        
+        System.out.println("Empty Beds");
         for(int i= 0;i < beds.length; i++ ){
             for(int y=0; y< beds[i].length; y++ ){
                 
                 if(beds[i][y] == null){
                     
-                    System.out.print("bed: " +i+y +" is occupied\t");
+                    System.out.print("bed: " +i+":"+y +" is Available\t");
+                    total++;
                 }
+                
             }
             System.out.println();
+        }  
+        if(total <=0){
+            System.out.println("There are no Empty beds");
+        }
+        else{
+            System.out.println("Empty beds : " + total);
         }
     }
     
@@ -207,12 +248,12 @@ public class Ward {
                 }
             }
         }
-        wardOccupancy = (totalPatients/ wardTotal) * 100;
+        wardOccupancy = (totalBedsOccupied/ wardTotal) * 100;
         
         System.out.println("***********WARD REPORT**************");
         System.out.println("Registered Patients : " + totalPatients);
         System.out.println("Occupied Beds       : " + totalBedsOccupied);
-        System.out.println("Bed Bccupancy       : " + wardOccupancy);
+        System.out.println("Ward Occupancy      : " + wardOccupancy+"%");
         
     }
     

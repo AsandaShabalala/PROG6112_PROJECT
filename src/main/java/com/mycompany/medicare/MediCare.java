@@ -26,6 +26,7 @@ public class MediCare {
             choice = scanner.nextInt();
             scanner.nextLine();
             
+            System.out.println();
             switch(choice){
 
                 case 1 -> registerPatient();
@@ -33,7 +34,7 @@ public class MediCare {
                 case 3 -> updatePatientDetails();
                 case 4 -> deletePatient();
                 case 5 -> ward.displayPatients();
-                case 6 -> ward.displayPatients();
+                case 6 -> ward.displayEmptyBeds();
                 case 7 -> ward.displayOccupiedBeds();
                 case 8 -> ward.wardLayout();
                 case 9 -> ward.totals();
@@ -52,6 +53,7 @@ public class MediCare {
 
     private static void Menu() {
         
+        System.out.println();
         System.out.println("******** WELCOME TO MEDICARE *********");
         System.out.println("****** HOSPITAL WARD MANAGEMENT ******");    
         System.out.println("1. Register new patient : ");
@@ -75,10 +77,13 @@ public class MediCare {
         Patient patient = ward.search(id);
         
         if(patient != null){
-            System.out.println("PATIENT FOUND");
-            System.out.println("Name              : " + patient.getFirstName());
-            System.out.println("Last Name         : " + patient.getLastName());
-            System.out.println("Medical condition : " + patient.getMedicalCondition());
+            
+            System.out.println("\t Patient Found");
+            patient.displayDetails();
+            //System.out.println("PATIENT FOUND");
+            //System.out.println("Name              : " + patient.getFirstName());
+           // System.out.println("Last Name         : " + patient.getLastName());
+          //  System.out.println("Medical condition : " + patient.getMedicalCondition());
         }
         else{
             System.out.println("Not Patient with Id " + id+ " was found");
@@ -94,7 +99,7 @@ public class MediCare {
         
         for(int i = 0; i < choice; i++){
             
-            System.out.println("Enter the details for Patient " + (i+1));
+            System.out.println("\tEnter the details for Patient " + (i+1));
     
             System.out.print("First name: ");
             String firstName = scanner.nextLine();
@@ -124,7 +129,7 @@ public class MediCare {
             Patient patient;
 
             switch (category) {
-                case 1 -> patient = new Patient(firstName, lastName, id, age, gender, condition, patientCategory.INPATIENT);
+                case 1 -> patient = new Inpatient(firstName, lastName, id, age, gender, condition);
                         
                 case 2 -> patient = new Patient(firstName, lastName, id, age, gender, condition, patientCategory.OUTPATIENT);
 
@@ -137,7 +142,12 @@ public class MediCare {
 
             }
             if(ward.addPatient(patient)){
-                System.out.println("PATIENT SUCCESSFULLY REGISTERED"); 
+                System.out.println("PATIENT SUCCESSFULLY REGISTERED");
+                
+                if(patient instanceof Inpatient){
+                    
+                    ward.allocateBed((Inpatient) patient);
+                }
             }
             else{
                 System.out.println("Registration failed");
@@ -161,12 +171,21 @@ public class MediCare {
     private static void updatePatientDetails(){
         
         System.out.println("Enter the the Id of the patient you want to delete: ");
-        int Id = scanner.nextInt();
-        scanner.nextLine();
+        int Id;
+        
+        if (scanner.hasNextInt()) {
+            Id = scanner.nextInt();
+            scanner.nextLine();
+        } else {
+            System.out.println("Please enter a valid number.");
+            scanner.nextLine();
+            return;
+        }
         
         Patient patient = ward.search(Id);
-        if(ward.search(Id) != null){
+        if(patient != null){
         
+            System.out.println("Enter the new details of patient : "+ Id );
             System.out.print("First name: ");
             String firstName = scanner.nextLine();
             patient.setFirstName(firstName);
@@ -179,7 +198,7 @@ public class MediCare {
             String gender = scanner.nextLine();
             patient.setGender(gender);
 
-            System.out.println("Enter Age: ");
+            System.out.print("Enter Age: ");
             int age = scanner.nextInt();
             scanner.nextLine();
             patient.setAge(age);
