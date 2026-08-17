@@ -21,7 +21,7 @@ public class Ward {
         beds = new Inpatient[4][5];
         Patients = new Patient[row][column];
     }
-    
+    //method to register patients
     public boolean register(Patient patient){
         
         for(int i =0; i< Patients.length; i++){
@@ -34,6 +34,22 @@ public class Ward {
                     if(patient instanceof Inpatient){
                         allocateBed((Inpatient) patient);
                     }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    //method to add patients
+    public boolean addPatient(Patient patient){
+        
+        for(int i =0; i < Patients.length; i++){
+            for(int y=0; y<Patients[i].length; y++){
+                
+                if(Patients[i][y] != null){
+                    
+                    Patients[i][y] = patient;
                     return true;
                 }
             }
@@ -90,14 +106,9 @@ public class Ward {
         for(int i =0; i< Patients.length; i++){
             for(int y =0; y< Patients[i].length; y++){
                 
-                if (Patients[i][y] != null){
-                    System.out.println("Name              : " + Patients[i][y].getFirstName() );
-                    System.out.println("Last Name         : " + Patients[i][y].getLastName() );
-                    System.out.println("Gender            : " + Patients[i][y].getGender() );
-                    System.out.println("Age               : " + Patients[i][y].getAge() );
-                    System.out.println("Medical Condition : " + Patients[i][y].getMedicalCondition() );
-                    System.out.println("Category          : " + Patients[i][y].getCategory() );
-                }
+            if (Patients[i][y] != null){
+                Patients[i][y].displayDetails();
+            }
             }
         }        
     }

@@ -18,78 +18,130 @@ public class MediCare {
     static Scanner scanner = new Scanner(System.in);
     
     public static void main(String[] args) {
-        ward.displayOccupiedBeds();
+
+        int choice;
+        
+        do{
+            Menu();
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch(choice){
+
+                case 1 -> registerPatient();
+                case 2 -> searchPatient();
+                case 3 -> updatePatientDetails();
+                case 4 -> deletePatient();
+                case 5 -> ward.displayPatients();
+                case 6 -> ward.displayPatients();
+                case 7 -> ward.displayOccupiedBeds();
+                case 8 -> ward.wardLayout();
+                case 9 -> ward.totals();
+                
+
+                default -> {
+                    System.out.println("Invalid option Selected please choose a vaild Option");
+                }
+            }
+        }while (choice != 0);
+        
+        System.out.println("GOODBYE");
     }
     
     
 
     private static void Menu() {
-    System.out.println("****** HOSPITAL WARD MANAGEMENT ******");
-    System.out.println("1. Register new patient");
-    System.out.println("2. Search patient by ID");
-    System.out.println("3. Update patient details");
-    System.out.println("4. Delete patient");
-    System.out.println("5. Display all patients");
-    System.out.println("0. Exit");
-    }
+        
+        System.out.println("******** WELCOME TO MEDICARE *********");
+        System.out.println("****** HOSPITAL WARD MANAGEMENT ******");    
+        System.out.println("1. Register new patient : ");
+        System.out.println("2. Search patient by ID : ");
+        System.out.println("3. Update patient details : ");
+        System.out.println("4. Delete patient : ");
+        System.out.println("5. Display all patients : ");
+        System.out.println("6. Display available Beds : ");
+        System.out.println("7. Display occupied Beds : ");
+        System.out.println("8. Display Wardlayout : ");
+        System.out.println("9. View total number of patients, occupied beds and ward occupancy : ");
+        System.out.println("0. Exit");
+ 
+   }
     
     private static void searchPatient(){
         System.out.println("Enter the Patient Id of the patient you are looking for");
-        int Id = scanner.nextInt();
+        int id = scanner.nextInt();
         scanner.nextLine();
         
-        Patient patient = ward.search(Id);
+        Patient patient = ward.search(id);
         
         if(patient != null){
-            System.out.println("Found: " + patient);
+            System.out.println("PATIENT FOUND");
+            System.out.println("Name              : " + patient.getFirstName());
+            System.out.println("Last Name         : " + patient.getLastName());
+            System.out.println("Medical condition : " + patient.getMedicalCondition());
         }
         else{
-            System.out.println("Not Patient with Id " + Id+ " was found");
+            System.out.println("Not Patient with Id " + id+ " was found");
         }
         
     }
     
     private static void registerPatient() {
         
+        System.out.print("How many patients would you like to register?: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        
+        for(int i = 0; i < choice; i++){
+            
+            System.out.println("Enter the details for Patient " + (i+1));
     
-        System.out.print("First name: ");
-        String firstName = scanner.nextLine();
-        
-        System.out.print("Last name: ");
-        String lastName = scanner.nextLine();
-        
-        System.out.print("Gender: ");
-        String gender = scanner.nextLine();
-        
-        System.out.print("Patient ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        
-        System.out.println("Enter Age: ");
-        int age = scanner.nextInt();
-        scanner.nextLine();
-        
-        System.out.print("Medical condition: ");
-        String condition = scanner.nextLine();
+            System.out.print("First name: ");
+            String firstName = scanner.nextLine();
 
-        System.out.print("Category (1=Inpatient, 2=Outpatient, 3=Emergency): ");
-        int category = scanner.nextInt();
-        
-        
-        Patient patient;
-        
-        switch (category) {
-            case 1 -> patient = new Patient(firstName, lastName, id, age, gender, condition, patientCategory.INPATIENT);
+            System.out.print("Last name: ");
+            String lastName = scanner.nextLine();
 
-            case 2 -> patient = new Patient(firstName, lastName, id, age, gender, condition, patientCategory.OUTPATIENT);
+            System.out.print("Gender: ");
+            String gender = scanner.nextLine();
 
-            case 3 -> patient = new Patient(firstName, lastName, id, age, gender, condition, patientCategory.EMERGENCY);
+            System.out.print("Patient ID: ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
 
-            default -> {
-                System.out.println("Invalid category.");
-                return;
+            System.out.print("Enter Age: ");
+            int age = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.print("Medical condition: ");
+            String condition = scanner.nextLine();
+
+            System.out.print("Category (1=Inpatient, 2=Outpatient, 3=Emergency): ");
+            int category = scanner.nextInt();
+            scanner.nextLine();
+
+
+            Patient patient;
+
+            switch (category) {
+                case 1 -> patient = new Patient(firstName, lastName, id, age, gender, condition, patientCategory.INPATIENT);
+                        
+                case 2 -> patient = new Patient(firstName, lastName, id, age, gender, condition, patientCategory.OUTPATIENT);
+
+                case 3 -> patient = new Patient(firstName, lastName, id, age, gender, condition, patientCategory.EMERGENCY);
+
+                default -> {
+                    System.out.println("Invalid category.");
+                    return;
+                }
+
             }
-
+            if(ward.addPatient(patient)){
+                System.out.println("PATIENT SUCCESSFULLY REGISTERED"); 
+            }
+            else{
+                System.out.println("Registration failed");
+            }
         }
     }
     
