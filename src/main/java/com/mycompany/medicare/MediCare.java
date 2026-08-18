@@ -18,8 +18,10 @@ public class MediCare {
     static Scanner scanner = new Scanner(System.in);
     
     public static void main(String[] args) {
-
         int choice;
+       
+        System.out.println("******** WELCOME TO MEDICARE *********");
+        System.out.println("****** HOSPITAL WARD MANAGEMENT ******");
         
         do{
             Menu();
@@ -56,10 +58,7 @@ public class MediCare {
        
     //method for the menu
     private static void Menu() {
-        
-        System.out.println();
-        System.out.println("******** WELCOME TO MEDICARE *********");
-        System.out.println("****** HOSPITAL WARD MANAGEMENT ******"); 
+         
         System.out.println();
         System.out.println("PLEASE SELECT AN OPTION FROM 0-9");
         System.out.println("1. Register new patient : ");
@@ -115,13 +114,33 @@ public class MediCare {
             System.out.print("Gender: ");
             String gender = scanner.nextLine();
 
-            System.out.print("Patient ID: ");
-            String id = scanner.nextLine().toUpperCase();
 
-            System.out.print("Enter Age: ");
-            int age = scanner.nextInt();
-            scanner.nextLine();
+            String id;
+            do{
+                System.out.print("Patient ID: ");
+                id = scanner.nextLine().toUpperCase();
+                
+                if(ward.search(id)!= null){
+  
+                    System.out.println("PATIENT with this ID already exist choose another ID");
+                    id = null;
+              }
+            }while(id == null);
+            
+            int age;
+            do{
+                System.out.print("Enter Age: ");
 
+                if(scanner.hasNextInt()){
+                    age = scanner.nextInt();
+                    scanner.nextLine();
+                }else{
+                    System.out.println("Please enter a number");
+                    scanner.nextLine();
+                    age = -1;
+                }
+            }while(age < 0);
+            
             System.out.print("Medical condition: ");
             String condition = scanner.nextLine();
 

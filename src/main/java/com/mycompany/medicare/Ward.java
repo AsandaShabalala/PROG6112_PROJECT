@@ -141,7 +141,8 @@ public class Ward {
                 
                 if (beds[i][y] == null) {
                     
-                    patient.setBedNumber(4);
+                    int bedNum= (i * 5) + y + 1; //multiply by i by 5 since we have 5 beds per row and add the 1 to y since indexes start at 0
+                    patient.setBedNumber(bedNum);
                     beds[i][y] = patient;
                     return true;
                 }
@@ -157,12 +158,12 @@ public class Ward {
         for(int i= 0;i < beds.length; i++ ){
             for(int y=0; y< beds[i].length; y++ ){
                 
+                int bedNum= (i * 5) + y + 1;
                 if(beds[i][y] == null){
-                    
-                    System.out.print("[Bed: "+i+":"+y+ " E]\t");
+                    System.out.print("[Bed: "+bedNum + " E]\t");
                 }
                 else{
-                    System.out.print("[Bed:"+i+":"+y+ " O]\t");
+                    System.out.print("[Bed:"+bedNum+ " O]\t");
                 }
             }
             System.out.println();
@@ -180,7 +181,8 @@ public class Ward {
                 
                 if(beds[i][y] != null){
                     
-                    System.out.print("bed: " +i+":"+y +" is occupied\t");
+                    int bedNum= (i * 5) + y + 1;
+                    System.out.print("[bed: "+bedNum +"]\t");
                     total++;
                 }
                 
@@ -206,7 +208,9 @@ public class Ward {
                 
                 if(beds[i][y] == null){
                     
-                    System.out.print("bed: " +i+":"+y +" is Available\t");
+                    int bedNum= (i * 5) + y + 1;
+                    System.out.print("[bed: "+bedNum +"]\t");
+                    //System.out.print("bed: " +i+":"+y +" is Available\t");
                     total++;
                 }
                 
