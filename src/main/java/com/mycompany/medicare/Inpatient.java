@@ -17,6 +17,7 @@ public class Inpatient extends Patient {
         super(firstName, lastName, patientId, age, gender, medicalCondition, patientCategory.INPATIENT);
     }
 
+    //Override the method to add the attributes
     @Override
      public void displayDetails(){
         System.out.println("Name              : " + getFirstName() );

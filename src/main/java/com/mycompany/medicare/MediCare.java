@@ -50,7 +50,7 @@ public class MediCare {
     }
     
     
-
+    //method for the menu
     private static void Menu() {
         
         System.out.println();
@@ -68,6 +68,9 @@ public class MediCare {
         System.out.println("0. Exit");
  
    }
+    
+    //methods inthis main class are mainly for getting user input and then they call the methods 
+    //of the ward object
     
     private static void searchPatient(){
         System.out.println("Enter the Patient Id of the patient you are looking for");

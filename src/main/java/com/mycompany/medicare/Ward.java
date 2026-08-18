@@ -222,6 +222,7 @@ public class Ward {
         }
     }
     
+    //prints out a report of beds occupied, ward occupancy % and total patients
     public void totals(){
         
        int wardTotal =20; 
