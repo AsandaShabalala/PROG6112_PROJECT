@@ -12,13 +12,13 @@ public class Patient {
     
     private String firstName;
     private String lastName;
-    private int patientId;
+    private String patientId;
     private int age;
     private String gender;
     private String medicalCondition;
     private patientCategory category;
 
-    public Patient(String firstName, String lastName, int patientId, int age, String gender, String medicalCondition, patientCategory category) {
+    public Patient(String firstName, String lastName, String patientId, int age, String gender, String medicalCondition, patientCategory category) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.patientId = patientId;
@@ -34,6 +34,7 @@ public class Patient {
         System.out.println("Last Name         : " + lastName);
         System.out.println("Gender            : " + gender);
         System.out.println("Age               : " + age);
+        System.out.println("Patient ID        : " + patientId);
         System.out.println("Medical Condition : " + medicalCondition);
         System.out.println("Category          : " + category);
     }
@@ -46,7 +47,7 @@ public class Patient {
         return lastName;
     }
 
-    public int getPatientId() {
+    public String getPatientId() {
         return patientId;
     }
 
@@ -74,7 +75,7 @@ public class Patient {
         this.lastName = lastName;
     }
 
-    public void setPatientId(int patientId) {
+    public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 

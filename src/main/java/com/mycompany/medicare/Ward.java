@@ -18,6 +18,7 @@ public class Ward {
 
     public Ward() {
         
+        //4 rows and 5 coloumns since the beds are arranged in  4 by 5
         beds = new Inpatient[4][5];
         Patients = new Patient[row][column];
     }
@@ -57,12 +58,12 @@ public class Ward {
     }
     
     //method to search for patients
-    public Patient search(int Id){
+    public Patient search(String Id){
         
         for(int i =0; i < Patients.length; i++){
             for(int y=0; y<Patients[i].length; y++){
                 
-                if(Patients[i][y] != null && Id == Patients[i][y].getPatientId()){
+                if(Patients[i][y] != null && Id.equals(Patients[i][y].getPatientId())){
                     
                     return Patients[i][y];
                 }
@@ -72,12 +73,12 @@ public class Ward {
     }
     
     //method to remove patients
-    //It also realeses a bed if when the patient is removed
-    public boolean removePatient(int Id){
+    //It also realeses a bed if when the patient removed was an inpatient
+    public boolean removePatient(String Id){
         
         for(int i=0; i <Patients.length; i++){
             for(int y=0; y< Patients[i].length; y++){
-                if(Patients[i][y] != null && Patients[i][y].getPatientId() == Id){
+                if(Patients[i][y] != null && Patients[i][y].getPatientId().equals(Id)){
                     
                     Patients[i][y] = null;
                     
@@ -86,7 +87,7 @@ public class Ward {
                         for (int z = 0; z < beds[x].length; z++) {
 
                             if (beds[x][z] != null &&
-                                beds[x][z].getPatientId() == Id) {
+                                    beds[x][z].getPatientId().equals(Id)) {
 
                                 beds[x][z] = null;
                             }
@@ -103,27 +104,25 @@ public class Ward {
     public void displayPatients(){
         int z = 1;
         
-        for(int i =0; i< Patients.length; i++){
-            for(int y =0; y< Patients[i].length; y++){
-                
-            if (Patients[i][y] != null){
-                System.out.println("\t Patient " +z);
-                Patients[i][y].displayDetails();
-                
-                z++;
-                System.out.println();
-            }
+        for (Patient[] Patient : Patients) {
+            for (int y = 0; y < Patient.length; y++) {
+                if (Patient[y] != null) {
+                    System.out.println("\t Patient " +z);
+                    Patient[y].displayDetails();
+                    z++;
+                    System.out.println();
+                }
             }
         }        
     }
     
     //method to update patient details
-    public void updatePatient(Patient patient, int patientId){
+    public void updatePatient(Patient patient, String patientId){
         
         for(int i =0; i< Patients.length; i++){
             for(int y =0; y< Patients[i].length; y++){
                 
-                if(Patients[i][y] != null && patientId == Patients[i][y].getPatientId()){
+                if(Patients[i][y] != null && patientId.equals(Patients[i][y].getPatientId())){
                     
                     Patients[i][y] = patient;
                     System.out.println("DETAILS SUCCESSFULLY UPDATED");
@@ -249,7 +248,8 @@ public class Ward {
                 }
             }
         }
-        wardOccupancy = (totalBedsOccupied/ wardTotal) * 100;
+        //casted it to a double since it kept on return 0
+        wardOccupancy = ((double)totalBedsOccupied/ wardTotal) * 100;
         
         System.out.println("***********WARD REPORT**************");
         System.out.println("Registered Patients : " + totalPatients);

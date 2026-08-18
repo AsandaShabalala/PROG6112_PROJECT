@@ -23,9 +23,16 @@ public class MediCare {
         
         do{
             Menu();
-            choice = scanner.nextInt();
-            scanner.nextLine();
             
+            if (scanner.hasNextInt()) {     //checks if the user entered a number or not
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            
+            } else {
+                System.out.println("Please enter a valid number.");
+                scanner.nextLine();
+            return;
+        }
             System.out.println();
             switch(choice){
 
@@ -38,24 +45,23 @@ public class MediCare {
                 case 7 -> ward.displayOccupiedBeds();
                 case 8 -> ward.wardLayout();
                 case 9 -> ward.totals();
-                
+                case 0 -> System.out.print("GOODBYE");
 
                 default -> {
                     System.out.println("Invalid option Selected please choose a vaild Option");
                 }
             }
         }while (choice != 0);
-        
-        System.out.println("GOODBYE");
     }
-    
-    
+       
     //method for the menu
     private static void Menu() {
         
         System.out.println();
         System.out.println("******** WELCOME TO MEDICARE *********");
-        System.out.println("****** HOSPITAL WARD MANAGEMENT ******");    
+        System.out.println("****** HOSPITAL WARD MANAGEMENT ******"); 
+        System.out.println();
+        System.out.println("PLEASE SELECT AN OPTION FROM 0-9");
         System.out.println("1. Register new patient : ");
         System.out.println("2. Search patient by ID : ");
         System.out.println("3. Update patient details : ");
@@ -70,12 +76,11 @@ public class MediCare {
    }
     
     //methods inthis main class are mainly for getting user input and then they call the methods 
-    //of the ward object
+    //from the ward object
     
     private static void searchPatient(){
         System.out.println("Enter the Patient Id of the patient you are looking for");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        String id = scanner.nextLine().toUpperCase();
         
         Patient patient = ward.search(id);
         
@@ -83,10 +88,6 @@ public class MediCare {
             
             System.out.println("\t Patient Found");
             patient.displayDetails();
-            //System.out.println("PATIENT FOUND");
-            //System.out.println("Name              : " + patient.getFirstName());
-           // System.out.println("Last Name         : " + patient.getLastName());
-          //  System.out.println("Medical condition : " + patient.getMedicalCondition());
         }
         else{
             System.out.println("Not Patient with Id " + id+ " was found");
@@ -102,6 +103,7 @@ public class MediCare {
         
         for(int i = 0; i < choice; i++){
             
+            System.out.println();
             System.out.println("\tEnter the details for Patient " + (i+1));
     
             System.out.print("First name: ");
@@ -114,8 +116,7 @@ public class MediCare {
             String gender = scanner.nextLine();
 
             System.out.print("Patient ID: ");
-            int id = scanner.nextInt();
-            scanner.nextLine();
+            String id = scanner.nextLine().toUpperCase();
 
             System.out.print("Enter Age: ");
             int age = scanner.nextInt();
@@ -128,9 +129,9 @@ public class MediCare {
             int category = scanner.nextInt();
             scanner.nextLine();
 
-
             Patient patient;
-
+            
+            //if patient is an inpatient they get sent to the inpatient class then the super() will pass them onto the Patient class 
             switch (category) {
                 case 1 -> patient = new Inpatient(firstName, lastName, id, age, gender, condition);
                         
@@ -144,23 +145,28 @@ public class MediCare {
                 }
 
             }
+            //adds the patient into the Patients arraay and allocates them a bed if they are an Inpatient
             if(ward.addPatient(patient)){
                 System.out.println("PATIENT SUCCESSFULLY REGISTERED");
                 
                 if(patient instanceof Inpatient){
                     
-                    ward.allocateBed((Inpatient) patient);
+                    if(ward.allocateBed((Inpatient) patient)){
+                        System.out.println("Bed has also has been allocated to the patient");
+                    }else{
+                        System.out.println("BEDS ARE FULL");
+                    }
                 }
             }
             else{
-                System.out.println("Registration failed");
+                System.out.println("Patient Registration failed");
             }
         }
     }
     
     private static void deletePatient(){
         System.out.println("Enter the the Id of the patient you want to delete: ");
-        int Id = scanner.nextInt();
+        String Id = scanner.nextLine().toUpperCase();
         
         if(ward.search(Id) != null){
             ward.removePatient(Id);
@@ -173,17 +179,8 @@ public class MediCare {
     
     private static void updatePatientDetails(){
         
-        System.out.println("Enter the the Id of the patient you want to delete: ");
-        int Id;
-        
-        if (scanner.hasNextInt()) {
-            Id = scanner.nextInt();
-            scanner.nextLine();
-        } else {
-            System.out.println("Please enter a valid number.");
-            scanner.nextLine();
-            return;
-        }
+        System.out.println("Enter the the Id of the patient you want to Update: ");
+        String Id = scanner.nextLine().toUpperCase();
         
         Patient patient = ward.search(Id);
         if(patient != null){

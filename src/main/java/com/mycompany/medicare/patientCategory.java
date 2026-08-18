@@ -8,6 +8,8 @@ package com.mycompany.medicare;
  *
  * @author Student
  */
+    //enum class for the categories
+
 public enum patientCategory {
     
     INPATIENT,
