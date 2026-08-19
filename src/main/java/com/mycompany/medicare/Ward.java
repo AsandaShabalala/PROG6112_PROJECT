@@ -22,27 +22,8 @@ public class Ward {
         beds = new Inpatient[4][5];
         Patients = new Patient[row][column];
     }
-    //method to register patients
-    public boolean register(Patient patient){
-        
-        for(int i =0; i< Patients.length; i++){
-            for(int y =0; y< Patients[i].length; y++){
-                
-                if(Patients[i][y] == null){
-                    Patients[i][y] = patient;
-                    
-                    //using a nested if to allocate beds to inpateints
-                    if(patient instanceof Inpatient){
-                        allocateBed((Inpatient) patient);
-                    }
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
     
-    //method to add patients
+    //method to add/register patients
     public boolean addPatient(Patient patient){
         
         for(int i =0; i < Patients.length; i++){

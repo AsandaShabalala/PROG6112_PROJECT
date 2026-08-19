@@ -18,6 +18,7 @@ public class MediCare {
     static Scanner scanner = new Scanner(System.in);
     
     public static void main(String[] args) {
+        
         int choice;
        
         System.out.println("******** WELCOME TO MEDICARE *********");
@@ -96,8 +97,21 @@ public class MediCare {
     
     private static void registerPatient() {
         
-        System.out.print("How many patients would you like to register?: ");
-        int choice = scanner.nextInt();
+        //do while logic just checks if the userinput is a number or not and keeps on forcing the user to enter a number above 0 
+        //to be able to move on to the next step
+        int choice;
+        do{
+            System.out.print("How many patients would you like to register?: ");
+
+            if(scanner.hasNextInt()){
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }else{
+                System.out.println("Please enter a number");
+                scanner.nextLine();
+                choice = -1;
+            }
+        }while(choice < 0);
         scanner.nextLine();
         
         for(int i = 0; i < choice; i++){
@@ -113,7 +127,6 @@ public class MediCare {
 
             System.out.print("Gender: ");
             String gender = scanner.nextLine();
-
 
             String id;
             do{
@@ -217,10 +230,19 @@ public class MediCare {
             String gender = scanner.nextLine();
             patient.setGender(gender);
 
-            System.out.print("Enter Age: ");
-            int age = scanner.nextInt();
-            scanner.nextLine();
-            patient.setAge(age);
+            int age;
+            do{
+                System.out.print("Enter Age: ");
+
+                if(scanner.hasNextInt()){
+                    age = scanner.nextInt();
+                    scanner.nextLine();
+                }else{
+                    System.out.println("Please enter a number");
+                    scanner.nextLine();
+                    age = -1;
+                }
+            }while(age < 0);
 
             System.out.print("Medical condition: ");
             String condition = scanner.nextLine();
@@ -239,9 +261,7 @@ public class MediCare {
                     System.out.println("Inavalid category selected please try Updating patient info again");   
                     return;
                 }
-            }
-
-        
+            }       
             ward.updatePatient(patient, Id);
         }
         else{
