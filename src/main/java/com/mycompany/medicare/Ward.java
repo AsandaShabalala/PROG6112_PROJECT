@@ -10,8 +10,8 @@ package com.mycompany.medicare;
  */
 public class Ward {
     
-    private int row = 10;
-    private int column = 10;
+    final private int row = 10;
+    final private int column = 10;
     
     Inpatient[][] beds;
     Patient[][] Patients;
@@ -242,6 +242,5 @@ public class Ward {
         System.out.println("Ward Occupancy      : " + wardOccupancy+"%");
         
     }
-    
     
 }

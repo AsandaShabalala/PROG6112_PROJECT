@@ -4,10 +4,6 @@
  */
 package com.mycompany.medicare;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -172,5 +168,31 @@ public class WardTest {
         
         //allocate bed should return false since all the beds are now full 
         assertFalse(ward.allocateBed(extraPatient));
+    }
+
+    
+    //Test releasing a bed after the patient is removed
+    @Test
+    public void testReleaseBed() {
+    
+        Ward ward = new Ward();
+
+        Inpatient patient = new Inpatient(
+                "Thabani",
+                "Buthelexi",
+                "P001",
+                25,
+                "Male",
+                "asthma"
+        );
+        ward.addPatient(patient);
+        boolean bedAllocated = ward.allocateBed(patient);
+        boolean bedReleased = ward.removePatient("P001");
+        
+        assertTrue(bedAllocated);
+        assertTrue(bedReleased);
+        assertNull(ward.search("P001"));
+        
+    
     }
 }
